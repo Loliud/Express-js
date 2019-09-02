@@ -1,0 +1,8 @@
+h1 List Products
+a(href="/product/create") New product
+form(method="get" action="/products/search")
+    input(type="text" name="search")
+    button(type="submit") Search
+ul 
+    each item in products  
+        li= item.name
