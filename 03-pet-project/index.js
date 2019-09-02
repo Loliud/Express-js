@@ -29,6 +29,7 @@ app.get('/products', (req, res) =>{
 
 // tim kiem san pham trong danh sach
 app.get('/products/search', (req, res) =>{
+    const products = db.get('products').value();
     const {search} = req.query;
     const searchProducts = products.filter(item  =>{
         return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
