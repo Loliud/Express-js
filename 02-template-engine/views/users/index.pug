@@ -1,6 +1,7 @@
 form(action="/users/search" method="GET")
     input(type="text" name="q" value=q)
     button(type="submit") Search
+a(href="/users/create") New
 ul List users
     each user in users
         li #{user.name}
