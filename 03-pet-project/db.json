@@ -1,10 +1,20 @@
 {
   "products": [
     {
-      "name": "Pepsi"
+      "name": "Orange",
+      "id": "9yUq01Mwq"
     },
     {
-      "name": "Orange juice"
+      "name": "Banana",
+      "id": "AjhAmbPbd"
+    },
+    {
+      "name": "Apple",
+      "id": "7k-Yw9Zhs"
+    },
+    {
+      "name": "Watermelon",
+      "id": "S9Er8Rug5"
     }
   ]
 }

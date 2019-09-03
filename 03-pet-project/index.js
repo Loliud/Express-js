@@ -1,19 +1,19 @@
 const app = require('express')();
 var bodyParser = require('body-parser')
+const shortid = require('shortid')
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 const port = 3000;
 const low = require('lowdb')
+
 const FileSync = require('lowdb/adapters/FileSync')
 
 const adapter = new FileSync('db.json')
 const db = low(adapter)
 
 // Set some defaults (required if your JSON file is empty)
-db.defaults({products: [{name: 'Pepsi'}]})
+db.defaults({products: []})
   .write();
-
-
 
 // mo cong home
 app.get('/', (req, res) =>{
@@ -42,9 +42,21 @@ app.get('/products/search', (req, res) =>{
 app.get('/product/create', (req, res) =>{
     res.render('products/create.pug');
 });
+
+app.get('/product/view/:id', (req, res) =>{
+    
+    const id = req.params.id;
+    console.log(id);
+    const product = db.get('products').find({id: id}).value();
+    res.render('products/view/index.pug', {
+        product:product
+    });
+});
 // gui san pham len server
 app.post('/product/create', (req, res) =>{
+    const id = shortid.generate();
     const newProduct = req.body;
+    req.body.id = id;
     console.log(newProduct);
     db.get('products').push(newProduct).write();
     res.redirect('/products');
