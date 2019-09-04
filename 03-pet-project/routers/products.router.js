@@ -1,50 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const shortid = require('shortid')
-const db = require('../commons/db');
 
+const productsControllers = require('../controller/products.controller');
 
-router.get('/', (req, res) =>{
-    const products = db.get('products').value();
-    res.render('products/index.pug', {
-        products: products
-    });
-});
+router.get('/', productsControllers.renderProducts);
 
 // tim kiem san pham trong danh sach
-router.get('/search', (req, res) =>{
-    const products = db.get('products').value();
-    const {search} = req.query;
-    const searchProducts = products.filter(item  =>{
-        return item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    });
-    res.render('products/index.pug', {
-        products: searchProducts
-    });
-})
+router.get('/search', productsControllers.search)
 // mo endpoint create san pham
-router.get('/create', (req, res) =>{
-    res.render('products/create.pug');
-});
+router.get('/create', productsControllers.create);
 
-router.get('/view/:id', (req, res) =>{
-    
-    const id = req.params.id;
-    console.log(id);
-    const product = db.get('products').find({id: id}).value();
-    res.render('products/view/index.pug', {
-        product:product
-    });
-});
+router.get('/view/:id', productsControllers.viewProduct);
 // gui san pham len server
-router.post('/create', (req, res) =>{
-    const id = shortid.generate();
-    const newProduct = req.body;
-    req.body.id = id;
-    console.log(newProduct);
-    db.get('products').push(newProduct).write();
-    res.redirect('/products');
-});
+router.post('/create', productsControllers.postCreate);
 
 
 module.exports  = router;
