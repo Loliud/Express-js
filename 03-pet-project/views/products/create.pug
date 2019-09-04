@@ -1,4 +1,6 @@
-form(action="/products/create", method="POST")
-    label Name
-    input(type="text" name="name")
-    button(type="submit") Create
+extends ../commons/layout.pug
+block navbar   
+    form(action="/products/create", method="POST")
+        label Name
+        input(type="text" name="name")
+        button(type="submit") Create

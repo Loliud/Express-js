@@ -1,10 +1,12 @@
-h1 List Products
-a(href="/products/create") New product
-form(method="get" action="/products/search")
-    input(type="text" name="search")
-    button(type="submit") Search
-ul 
-    each item in products  
-        li= item.name 
-            span &nbsp;
-            a(href="/products/view/" + item.id) View
+extends ../commons/layout.pug
+block navbar   
+    h1 List Products
+    a(href="/products/create") New product
+    form(method="get" action="/products/search")
+        input(type="text" name="search")
+        button(type="submit") Search
+    ul 
+        each item in products  
+            li= item.name 
+                span &nbsp;
+                a(href="/products/view/" + item.id) View
